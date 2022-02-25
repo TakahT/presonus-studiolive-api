@@ -1,3 +1,5 @@
+/* eslint no-unused-vars: "off" */
+
 import { EventEmitter } from 'events'
 
 import Discovery from './Discovery'
@@ -216,7 +218,7 @@ export class Client extends EventEmitter {
    * Analyse, decode and emit packets
    */
   private handleRecvPacket(packet) {
-    let [messageCode, data] = analysePacket(packet)
+    let [port, messageCode, data] = analysePacket(packet)
     if (messageCode === null) return
 
     // Handle message types

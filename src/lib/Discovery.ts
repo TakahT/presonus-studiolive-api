@@ -53,10 +53,9 @@ export default class extends EventEmitter {
     })
 
     socket.on('message', (packet, rinfo) => {
-      const [code, data] = analysePacket(packet, true)
+      const [port, code, data] = analysePacket(packet, true)
       if (!code) return
 
-      const port = data.slice(4, 6).readUInt16LE()
       // Split data by null byte
       const fragments = []
       for (

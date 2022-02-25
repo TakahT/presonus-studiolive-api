@@ -72,14 +72,14 @@ export default function createServer(port, channelCounts: ChannelCount, onData: 
       }
 
       // Metering values for the main mix
-      const mainMixFaders = readValues(channelCounts.line)
+      const mainMixFaders = readValues(channelCounts.main)
 
       // Stereo
       const fxreturn_strip = {
-        input: readValues(channelCounts.fx * 2, 8),
-        stripA: readValues(channelCounts.fx * 2),
-        stripB: readValues(channelCounts.fx * 2),
-        stripC: readValues(channelCounts.fx * 2)
+        input: readValues(channelCounts.fxReturn * 2, 8),
+        stripA: readValues(channelCounts.fxReturn * 2),
+        stripB: readValues(channelCounts.fxReturn * 2),
+        stripC: readValues(channelCounts.fxReturn * 2)
       }
 
       /**
@@ -92,13 +92,6 @@ export default function createServer(port, channelCounts: ChannelCount, onData: 
         stripB: readValues(channelCounts.aux),
         stripC: readValues(channelCounts.aux),
         stripD: readValues(channelCounts.aux)
-      }
-
-      const fx_chstrip = {
-        inputs: readValues(channelCounts.fx),
-        stripA: readValues(channelCounts.fx), // eq out
-        stripB: readValues(channelCounts.fx), // comp out
-        stripC: readValues(channelCounts.fx) // outs
       }
 
       // Stereo
@@ -118,7 +111,6 @@ export default function createServer(port, channelCounts: ChannelCount, onData: 
         mainMixFaders,
         main_chstrip,
         main,
-        fx_chstrip,
         fxreturn_strip
       })
     })

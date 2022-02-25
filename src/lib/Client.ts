@@ -5,7 +5,7 @@ import type DiscoveryType from './types/DiscoveryType'
 
 import DataClient from './util/DataClient'
 import MeterServer from './MeterServer'
-import { ACTIONS, MESSAGETYPES } from './constants'
+import { CHACTIONS, MESSAGETYPES } from './constants'
 
 import {
   analysePacket,
@@ -157,10 +157,9 @@ export class Client extends EventEmitter {
               this.removeListener(MESSAGETYPES.ZLIB, zlibInitCallback)
               this.channelCounts = {
                 line: Object.keys(this.state.get('line')).length,
-                aux: Object.keys(this.state.get('aux')).length,
-                fx /* fxbus == fxreturn */: Object.keys(this.state.get('fx')).length,
                 return /* aka tape? */: Object.keys(this.state.get('return')).length,
-                talkback: Object.keys(this.state.get('talkback')).length,
+                fxReturn /* fxbus == fxreturn */: Object.keys(this.state.get('fxreturn')).length,
+                aux: Object.keys(this.state.get('aux')).length,
                 main: Object.keys(this.state.get('main')).length
               }
 
@@ -272,7 +271,7 @@ export class Client extends EventEmitter {
     this._sendPacket(
       MESSAGETYPES.Setting,
       Buffer.concat([
-        Buffer.from(`${parseChannelString(selector)}/${ACTIONS.MUTE}\x00\x00\x00`),
+        Buffer.from(`${parseChannelString(selector)}/${CHACTIONS.MUTE}\x00\x00\x00`),
         onOff.encode(state)
       ])
     )
@@ -296,7 +295,7 @@ export class Client extends EventEmitter {
    * Toggle the mute status of a channel
    */
   toggleMute(selector: ChannelSelector) {
-    const currentState = this.state.get(`${parseChannelString(selector)}/${ACTIONS.MUTE}`)
+    const currentState = this.state.get(`${parseChannelString(selector)}/${CHACTIONS.MUTE}`)
     this.setMute(selector, !currentState)
   }
 
@@ -312,7 +311,7 @@ export class Client extends EventEmitter {
    */
   private _setLevel(this: Client, selector: ChannelSelector, level, duration: number = 0): Promise<null> {
     const channelString = parseChannelString(selector)
-    const target = `${channelString}/${ACTIONS.VOLUME}`
+    const target = `${channelString}/${CHACTIONS.VOLUME}`
 
     const assertReturn = () => {
       // Additional time to wait for response

@@ -18,22 +18,16 @@ export default function handleMSPacket(this: Client, data): {
   const channelCounts = this.channelCounts
 
   const line = readValues(data, channelCounts.line)
-  data = data.slice(channelCounts.line * 2)
+  data = data.slice(channelCounts.line)
 
-  const tape = readValues(data, channelCounts.return)
+  const pcReturn = readValues(data, channelCounts.return)
   data = data.slice(channelCounts.return * 2)
 
-  const fx_return = readValues(data, channelCounts.fx)
-  data = data.slice(channelCounts.fx * 2)
-
-  const talkback = readValues(data, channelCounts.talkback)
-  data = data.slice(channelCounts.talkback * 2)
+  const fx = readValues(data, channelCounts.fxReturn)
+  data = data.slice(channelCounts.fxReturn * 2)
 
   const aux = readValues(data, channelCounts.aux)
   data = data.slice(channelCounts.aux * 2)
-
-  const fx = readValues(data, channelCounts.fx)
-  data = data.slice(channelCounts.fx * 2)
 
   const main = readValues(data, channelCounts.main)
   data = data.slice(channelCounts.main * 2)
@@ -42,13 +36,9 @@ export default function handleMSPacket(this: Client, data): {
 
   return {
     LINE: line,
+    RETURN: pcReturn,
+    FXRETURN: fx,
     AUX: aux,
-    FX: fx,
-    FXRETURN: fx_return,
-    TALKBACK: talkback,
     MAIN: main,
-    SUB: [],
-    RETURN: []
-    // ??? tape
   }
 }

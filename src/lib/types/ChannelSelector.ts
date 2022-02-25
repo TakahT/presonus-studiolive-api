@@ -4,7 +4,7 @@ type ChannelSelector = {
     type: keyof typeof CHANNELTYPES
     channel: CHANNELS.CHANNELS
 } | {
-    type: 'MAIN' | 'TALKBACK'
+    type: 'MAIN'
     channel?: 1
 }
 

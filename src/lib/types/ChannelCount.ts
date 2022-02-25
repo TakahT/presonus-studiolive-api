@@ -1,9 +1,8 @@
 type ChannelCount = {
     line: number
-    aux: number
-    fx: number
     return: number
-    talkback: number
+    fxReturn: number
+    aux: number
     main: number
 }
 

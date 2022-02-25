@@ -56,6 +56,7 @@ export default class extends EventEmitter {
       const [code, data] = analysePacket(packet, true)
       if (!code) return
 
+      const port = data.slice(4, 6).readUInt16LE()
       // Split data by null byte
       const fragments = []
       for (
@@ -79,7 +80,7 @@ export default class extends EventEmitter {
         name: nameA,
         serial,
         ip: rinfo.address,
-        port: rinfo.port,
+        port: port,
         timestamp: new Date()
       } as DiscoveryType)
     })

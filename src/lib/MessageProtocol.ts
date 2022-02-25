@@ -60,12 +60,11 @@ export function craftSubscribe(overrides: SubscriptionOptions = {}) {
     id: 'Subscribe',
     clientName: 'UC-Surface',
     clientInternalName: 'ucremoteapp',
-    clientType: 'StudioLive API',
-
+    clientType: 'Android',
     clientDescription: 'User', // Name of the client
-    clientIdentifier: '133d066a919ea0ea', // ID of the client
+    clientIdentifier: 'eb9857e4f6426ed5', // ID of the client
     clientOptions: 'perm users levl redu rtan',
-    clientEncoding: 23106,
+    clientEncoding: 23117,
     ...overrides
   }
 
